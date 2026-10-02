@@ -1,0 +1,3 @@
+import {createReportPdf} from '@/lib/report-pdf';
+import {calculate} from '@/lib/calculator';
+export async function GET(request:Request){let answers:number[];try{answers=JSON.parse(new URL(request.url).searchParams.get('answers')||'null');calculate(answers);}catch{return Response.json({error:'Completa las cuatro respuestas para generar tu PDF.'},{status:400});}try{const bytes=await createReportPdf(answers);return new Response(bytes as BodyInit,{headers:{'Content-Type':'application/pdf','Content-Disposition':'attachment; filename="Mi-ejercicio-Coldwell-Banker.pdf"','Cache-Control':'no-store'}});}catch{return Response.json({error:'No pudimos generar el PDF. Intenta nuevamente.'},{status:500});}}

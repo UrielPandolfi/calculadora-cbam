@@ -1,0 +1,14 @@
+'use client';
+import {useEffect,useRef,useState} from 'react';
+import {money,options} from '@/lib/calculator';
+export function AnimatedNumber({value,currency=true}:{value:number;currency?:boolean}){
+ const ref=useRef<HTMLSpanElement>(null);const [current,setCurrent]=useState(0);
+ useEffect(()=>{let frame=0;let started=false;setCurrent(0);const el=ref.current;if(!el)return;const observer=new IntersectionObserver(entries=>{if(!entries.some(e=>e.isIntersecting)||started)return;started=true;if(matchMedia('(prefers-reduced-motion: reduce)').matches){setCurrent(value);return;}const start=performance.now();const tick=(t:number)=>{const p=Math.min((t-start)/1400,1);setCurrent(value*(1-Math.pow(1-p,3)));if(p<1)frame=requestAnimationFrame(tick);};frame=requestAnimationFrame(tick);},{threshold:.2});observer.observe(el);return()=>{observer.disconnect();cancelAnimationFrame(frame)};},[value]);
+ const format=(n:number)=>currency?money(Math.round(n)):new Intl.NumberFormat('es-MX',{maximumFractionDigits:2}).format(n);
+ return <span ref={ref} aria-label={format(value)}><span aria-hidden="true">{format(current)}</span></span>;
+}
+export const productivityBounds=[[0,500000],[500000,750000],[750001,1000000],[1000001,1500000],[1500001,3000000],[3000000,5000000]];
+export function GrowthChart({index,growth}:{index:number;growth:number}){
+ const ref=useRef<HTMLDivElement>(null);const [shown,setShown]=useState(false);useEffect(()=>{setShown(false);const o=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){setShown(true);o.disconnect();}},{threshold:.2});if(ref.current)o.observe(ref.current);return()=>o.disconnect();},[index,growth]);
+ const [low,high]=productivityBounds[index];const max=Math.max(high,growth);return <div ref={ref} className={'growth-chart '+(shown?'chart-visible':'')}><div className="chart-heading"><h3>Tu punto de partida. Tu potencial.</h3><span>INGRESOS BRUTOS POR COMISIONES · MXN</span></div><div className="chart-row"><div className="chart-row-label"><span>Tu agencia hoy</span><strong>{options[0][index][0]}</strong></div><div className="bar-track"><div className="bar-scale current-scale" style={{width:`${high/max*100}%`}}><span className="bar-fill"/><span className="range-band" style={{left:`${low/high*100}%`,width:`${(high-low)/high*100}%`}}/></div></div></div><div className="chart-row"><div className="chart-row-label"><span>Crecimiento mínimo en IBC con CB</span><strong><AnimatedNumber value={growth}/></strong></div><div className="bar-track"><div className="bar-scale cb-scale" style={{width:`${growth/max*100}%`}}><span className="bar-fill"/></div></div></div><div className="chart-axis"><span>$0</span><span>{money(max)}</span></div><p>La franja clara representa tu rango actual; la barra llega a su límite superior. La barra azul muestra la salida de crecimiento del modelo, sin sumarla a tus ingresos actuales. No es una proyección de utilidad.</p></div>;
+}
