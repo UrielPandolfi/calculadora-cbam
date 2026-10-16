@@ -1,0 +1,81 @@
+.emprendedores{background:#0a1730;color:#fff}
+.emprendedores .scene-scrim,.emprendedores .scene-glow{display:none}
+.emprendedores .scene-media img{transform:none;object-position:center center}
+.emprendedores .consultor{border:1px solid #fff;background:transparent;color:#fff;min-height:46px;padding:0 18px;font-size:15px;border-radius:2px}
+.emprendedores .consultor:hover{background:#ffffff18}
+.emprendedores .cinema-header.on-light .cinema-brand img{filter:none}
+.emprendedores .cinema-header.on-light .consultor{border-color:#1b3c55;color:#1b3c55}
+.emprendedores .cinema-header.on-light .consultor:hover{background:#1b3c5512}
+.emprendedores .hero{display:flex;flex-direction:column;align-items:flex-start;max-width:680px;margin:0;padding:0;gap:0}
+.emprendedores .hero-title{font-size:clamp(40px,4.5vw,58px);line-height:1.05;letter-spacing:-1.6px;max-width:10.6em;margin:0;color:#fff;font-weight:700}
+.emprendedores .hero h1 em,.emprendedores .hero-title em{display:inline;color:#1f69ff;font-style:italic;font-weight:500;white-space:normal}
+.emprendedores .title-tide{color:#bdcfe8}
+.emprendedores .hero-copy{margin-top:26px;max-width:560px}
+.emprendedores .hero-copy p,.emprendedores .hero-copy>p{color:#fff;font-size:17px;line-height:1.45;max-width:none;margin:0}
+.emprendedores .hero-copy p+p{margin-top:2px}
+.emprendedores .ask{margin-top:34px;max-width:540px}
+.emprendedores .ask>label,.emprendedores .next-ask>label{display:block;color:#fff;font-size:16px;line-height:1.4;margin-bottom:12px}
+.emprendedores .discover{margin-top:16px;background:#1f69ff;border:1px solid #1f69ff;color:#fff;min-height:48px;padding:0 20px;font-size:15px;border-radius:2px}
+.emprendedores .discover:hover:not(:disabled){background:#012169;border-color:#012169}
+.emprendedores .scene.light{color:#0a1730}
+.emprendedores .scene.light .hero-title{color:#0a1730;max-width:14em}
+.emprendedores .scene.light .ask>label{color:#1b3c55;font-size:16px}
+.emprendedores .scene.light .ask{max-width:430px}
+.emprendedores .scene.light .scene-select{background:#fff!important;border:1px solid #418fde!important;color:#1b3c55!important}
+.emprendedores .scene.light .scene-select[data-placeholder]{color:#58718d!important}
+.emprendedores .scene.light .scene-select svg{color:#1b3c55!important}
+.emprendedores .zone-note{margin:18px 0 0;max-width:340px;color:#1b3c55;font-size:16px;line-height:1.45}
+.emprendedores .scene.light .discover{margin-top:22px}
+.emprendedores .capital-title{max-width:16em}
+.emprendedores .capital-title em{color:#1f69ff}
+.emprendedores #escena-2 .ask{max-width:520px}
+.emprendedores .ask .zone-note.on-dark{max-width:348px;color:#fff}
+.emprendedores .shield-title{max-width:18em}
+.emprendedores #escena-3 .hero{max-width:840px}
+.emprendedores #escena-3 .ask{max-width:840px}
+.emprendedores #escena-3 .scene-select{max-width:440px!important}
+.emprendedores .shield-note{max-width:760px!important}
+.emprendedores .crm-title{max-width:14em}
+.emprendedores #escena-4 .ask{max-width:640px}
+.emprendedores #escena-4 .scene-select{max-width:440px!important}
+.emprendedores .crm-note{max-width:620px!important}
+.emprendedores .cinema-header.on-paper{background:linear-gradient(#fff,transparent);color:#1b3c55}
+.emprendedores .cinema-header.on-paper .cinema-brand img{filter:none}
+.emprendedores .cinema-header.on-paper .consultor{border-color:#1b3c55;color:#1b3c55}
+.emprendedores .cinema-header.on-paper .consultor:hover{background:#1b3c5512}
+.emprendedores .ready{min-height:100svh;scroll-snap-align:start;background:#fff;color:#1b3c55;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:128px var(--slide-gutter) 88px;text-align:center}
+.emprendedores .ready h2{max-width:none;margin:0;color:#1b3c55;font-size:clamp(30px,3.2vw,44px);font-weight:700;line-height:1.15;letter-spacing:-.7px}
+.emprendedores .ready h2 .accent{color:#1f69ff;font-style:normal;font-weight:700}
+.emprendedores .ready h2 strong{color:#0a1730;font-weight:700}
+.emprendedores .ready-cards{list-style:none;width:min(1080px,100%);margin:52px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.emprendedores .ready-card{min-height:158px;margin:0;padding:20px 10px;border-radius:16px;background:#f0f5fb;color:#1b3c55;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:16px;line-height:1.25;transition:background .2s ease,color .2s ease}
+.emprendedores .ready-card strong,.emprendedores .ready-card>span{display:block}
+.emprendedores .ready-card strong{font-weight:700;color:#0a1730}
+.emprendedores .ready-card:first-child strong{margin-bottom:8px;font-size:26px;letter-spacing:-.5px}
+.emprendedores .ready-card small{display:block;margin-top:8px;color:#58718d;font-size:14px;line-height:1.35;font-weight:400}
+.emprendedores .ready-card:hover{background:#1b3c55;color:#fff}
+.emprendedores .ready-card:hover strong,.emprendedores .ready-card:hover small{color:#fff}
+.emprendedores .ready-next{margin:46px 0 0;color:#1b3c55;font-size:20px;line-height:1.4}
+.emprendedores .ready-next strong{font-weight:700;color:#0a1730}
+.emprendedores .ready .discover{margin-top:28px}
+.emprendedores .contact-block{scroll-snap-align:start;scroll-margin-top:24px;background:#fff;color:#1b3c55;display:flex;justify-content:center;padding:24px var(--slide-gutter) 96px}
+.emprendedores .contact-block .lead-form{width:min(640px,100%);background:#fff}
+.emprendedores .contact-block .lead-form h3{color:#0a1730}
+.emprendedores .contact-block .contact-phone{display:block;margin-top:19px;font-size:13px;line-height:1.6;color:#1b3c55}
+.emprendedores .contact-block .zf-errorMessage{color:#a32222}
+.emprendedores .zone-note strong{font-weight:700;color:inherit}
+@media(max-width:860px){
+  .emprendedores .ready-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:720px){
+  .emprendedores .consultor{min-height:40px;padding:0 12px;font-size:13px}
+  .emprendedores .hero-title{font-size:clamp(34px,9vw,46px);letter-spacing:-1.2px}
+  .emprendedores .hero-copy p{font-size:16px}
+  .emprendedores .ask,.emprendedores .scene-select{max-width:none}
+  .emprendedores .ready{padding:110px 6% 64px}
+  .emprendedores .ready h2{font-size:clamp(30px,8vw,40px)}
+  .emprendedores .ready-cards{grid-template-columns:1fr;gap:12px;margin-top:32px}
+  .emprendedores .ready-card{min-height:0;padding:20px 16px}
+  .emprendedores .ready-next{font-size:17px}
+  .emprendedores .contact-block{padding:8px 6% 72px}
+}
