@@ -1,6 +1,6 @@
 'use client';
 
-import {useEffect,useState} from 'react';
+import {useEffect} from 'react';
 import Script from 'next/script';
 import {zohoCheck} from '@/lib/zoho-check';
 
@@ -28,8 +28,7 @@ function configureZoho(){
   w.salesIQFieldsArray = [];
 }
 
-export function EmprendedoresLeadForm({capital,timing}:{capital:string;timing:string}){
-  const [franchise,setFranchise]=useState('');
+export function EmprendedoresLeadForm({franchise,capital,timing}:{franchise:string;capital:string;timing:string}){
   useEffect(()=>{configureZoho();},[]);
   function onSubmit(e:React.FormEvent<HTMLFormElement>){
     const validate = (window as Window & {zf_ValidateAndSubmit?:()=>boolean}).zf_ValidateAndSubmit;
@@ -48,6 +47,7 @@ export function EmprendedoresLeadForm({capital,timing}:{capital:string;timing:st
     <div hidden aria-hidden="true">
       <input type="radio" name="Radio6" value="Si" {...zohoCheck('c1')} onChange={()=>{}}/>
       <input type="radio" name="Radio6" value="No" checked {...zohoCheck('c1')} onChange={()=>{}}/>
+      {franchiseOptions.map(option=><input key={option} type="radio" name="Radio2" value={option} checked={franchise===option} onChange={()=>{}} {...zohoCheck('c1')}/>)}
       {capitalOptions.map(option=><input key={option} type="radio" name="Radio4" value={option} checked={capital===option} onChange={()=>{}} {...zohoCheck('c1')}/>)}
       {timingOptions.map(option=><input key={option} type="radio" name="Radio" value={option} checked={timing===option} onChange={()=>{}} {...zohoCheck('c1')}/>)}
     </div>
@@ -57,7 +57,7 @@ export function EmprendedoresLeadForm({capital,timing}:{capital:string;timing:st
       <label>Correo electrónico <em>*</em><input name="Email" {...zohoCheck('c5')} maxLength={255} autoComplete="email" inputMode="email"/><p id="Email_error" className="zf-errorMessage">Escribe un correo válido.</p></label>
     </div>
     <label className="contact-phone">Teléfono / WhatsApp <em>*</em><input name="SingleLine10" {...zohoCheck('c1')} maxLength={255} autoComplete="tel"/><p id="SingleLine10_error" className="zf-errorMessage">Escribe tu teléfono o WhatsApp.</p></label>
-    <fieldset className="zoho-group"><legend>Monto disponible para adquirir la franquicia <em>*</em></legend><div className="zoho-choices">{franchiseOptions.map(option=><label key={option} className="zoho-choice"><input type="radio" name="Radio2" value={option} checked={franchise===option} onChange={()=>setFranchise(option)} {...zohoCheck('c1')}/><span>{option}</span></label>)}</div><p id="Radio2_error" className="zf-errorMessage">Selecciona el monto disponible.</p></fieldset>
+    <p id="Radio2_error" className="zf-errorMessage">Selecciona el monto disponible para adquirir la franquicia.</p>
     <p id="Radio6_error" className="zf-errorMessage">Selecciona una opción.</p>
     <p id="Radio4_error" className="zf-errorMessage">Selecciona tu capital de trabajo en los paneles anteriores.</p>
     <p id="Radio_error" className="zf-errorMessage">Selecciona cuándo puedes hacer tu inversión.</p>

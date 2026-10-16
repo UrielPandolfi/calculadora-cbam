@@ -15,6 +15,7 @@ const officeOptions = [
   {value:'Si',label:'Sí'},
   {value:'No',label:'No'},
 ] as const;
+const franchiseOptions = ['Menos de $500,000','500 mil pesos','Mas de 500 mil pesos'];
 const capitalOptions = ['Menos de 1 MDP','De 1 a 1.5 MDP','De 1.5 a 2 MDP','Mas de 2 MDP'];
 const timingOptions = ['Invertir Ahora','De 1 a 2 Meses','Mas de 3 Meses'];
 
@@ -24,7 +25,7 @@ function imageSrc(file:string|{src:string}){
 
 export default function EmprendedoresLanding(){
   const [office,setOffice]=useState('');
-  const [city,setCity]=useState('');
+  const [franchise,setFranchise]=useState('');
   const [capital,setCapital]=useState('');
   const [showNext,setShowNext]=useState(false);
   const [showCapital,setShowCapital]=useState(false);
@@ -135,13 +136,13 @@ export default function EmprendedoresLanding(){
           <div className="hero">
             <h2 className="hero-title" id="titulo-ciudad">Posiciónate como<br/>el <em>líder</em> en el mercado<br/>inmobiliario</h2>
             <div className="ask">
-              <label id="pregunta-ciudad" htmlFor="ciudad">Ciudad donde quieres abrir tu franquicia</label>
-              <Select value={city} onValueChange={setCity}>
-                <SelectTrigger id="ciudad" aria-labelledby="pregunta-ciudad" className="scene-select"><SelectValue placeholder="Selecciona una opción"/></SelectTrigger>
-                <SelectContent position="popper" sideOffset={10} className="scene-options"/>
+              <label id="pregunta-monto" htmlFor="monto">Monto disponible para adquirir la franquicia</label>
+              <Select value={franchise} onValueChange={setFranchise}>
+                <SelectTrigger id="monto" aria-labelledby="pregunta-monto" className="scene-select"><SelectValue placeholder="Selecciona una opción"/></SelectTrigger>
+                <SelectContent position="popper" sideOffset={10} className="scene-options">{franchiseOptions.map(option=><SelectItem key={option} value={option} className="scene-option">{option}</SelectItem>)}</SelectContent>
               </Select>
-              <p className="zone-note">Analizamos la viabilidad de tu zona para asegurar que entres al mercado con una ventaja competitiva clara.</p>
-              <button type="button" className="discover" disabled={!city} onClick={()=>setShowCapital(true)}>Descubrir mi oportunidad</button>
+              <p className="zone-note">Este monto define la inversión para adquirir tu franquicia y el esquema con el que arranca tu agencia.</p>
+              <button type="button" className="discover" disabled={!franchise} onClick={()=>setShowCapital(true)}>Descubrir mi oportunidad</button>
             </div>
           </div>
         </div>
@@ -157,7 +158,7 @@ export default function EmprendedoresLanding(){
                 <SelectTrigger id="capital" aria-labelledby="pregunta-capital" className="scene-select"><SelectValue placeholder="Selecciona una opción"/></SelectTrigger>
                 <SelectContent position="popper" sideOffset={10} className="scene-options">{capitalOptions.map(option=><SelectItem key={option} value={option} className="scene-option">{option}</SelectItem>)}</SelectContent>
               </Select>
-              <p className="zone-note on-dark">La Universidad Coldwell Banker capacita a tus <strong>asesores</strong> para cerrar más y mejores exclusivas<br/>y así lograr el 100% de comisión.</p>
+              <p className="zone-note on-dark">Proyectamos con este capital la operación de tu primer año y el camino a tus primeras exclusivas.</p>
               <button type="button" className="discover" disabled={!capital} onClick={()=>setShowShield(true)}>Descubrir mi oportunidad</button>
             </div>
           </div>
@@ -191,7 +192,7 @@ export default function EmprendedoresLanding(){
                 <SelectTrigger id="inversion" aria-labelledby="pregunta-inversion" className="scene-select"><SelectValue placeholder="Selecciona una opción"/></SelectTrigger>
                 <SelectContent position="popper" sideOffset={10} className="scene-options">{timingOptions.map(option=><SelectItem key={option} value={option} className="scene-option">{option}</SelectItem>)}</SelectContent>
               </Select>
-              <p className="zone-note on-dark crm-note">Automatiza los seguimientos y asegura cada cierre de tu<br/>equipo con nuestro CRM inteligente e IA. Las herramientas<br/>para operar una franquicia exitosa te esperan ahora.</p>
+              <p className="zone-note on-dark crm-note">Según el momento en que puedes invertir, preparamos tu llamada de evaluación<br/>y el calendario de arranque de la franquicia. Así la inversión ocurre<br/>cuando estás listo para abrir tu agencia.</p>
               <button type="button" className="discover" disabled={!timing} onClick={()=>{scrollTarget.current='cierre';setShowReady(true);}}>Descubrir mi oportunidad</button>
             </div>
           </div>
@@ -211,7 +212,7 @@ export default function EmprendedoresLanding(){
         <button type="button" className="discover" onClick={goToForm}>Confirmar mi llamada de evaluación</button>
       </section>
       <section className="contact-block" id="contacto" aria-labelledby="titulo-contacto">
-        <EmprendedoresLeadForm capital={startupCapital||capital} timing={timing}/>
+        <EmprendedoresLeadForm franchise={franchise} capital={startupCapital||capital} timing={timing}/>
       </section>
       </div>}
     </main>
