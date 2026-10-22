@@ -2,6 +2,7 @@
 
 import {useEffect} from 'react';
 import Script from 'next/script';
+import {useCampaignFields} from '@/lib/campaign-fields';
 import {zohoCheck} from '@/lib/zoho-check';
 
 const productivity = ['Menos de $500,000','de $500,000 a $750,000','de $750,001 a $1,000,000','de $1,000,001 a $1,500,000','de $1,500,001 a $3,000,000','de $3,000,000 a $5 MDP','mas de $5 MDP'];
@@ -41,21 +42,22 @@ function configureZoho() {
 }
 
 export function ZohoLeadForm({answers}:{answers:number[]}) {
+  const campaign = useCampaignFields('calculadora');
   useEffect(()=>{configureZoho();},[]);
   function onSubmit(e:React.FormEvent<HTMLFormElement>) {
     const validate = (window as Window & {zf_ValidateAndSubmit?:()=>boolean}).zf_ValidateAndSubmit;
     if (!validate || !validate()) e.preventDefault();
   }
   return <form className="lead-form" action="https://forms.zohopublic.com/coldwellbankeraffiliatesdeme1/form/LandingCBAMBaffler/formperma/ML04gLsKgoYcfd_o65m7hpiO6tKOXK8idNBsfbX1ccY/htmlRecords/submit" name="form" method="POST" acceptCharset="UTF-8" encType="multipart/form-data" id="form" onSubmit={onSubmit}>
-    <input type="hidden" name="zf_referrer_name" value=""/>
+    <input type="hidden" name="zf_referrer_name" value={campaign.zf_referrer_name}/>
     <input type="hidden" name="zf_redirect_url" value=""/>
-    <input type="hidden" name="zc_gad" value=""/>
-    <input type="hidden" name="utm_source" value=""/>
-    <input type="hidden" name="utm_medium" value=""/>
-    <input type="hidden" name="utm_campaign" value=""/>
-    <input type="hidden" name="utm_term" value=""/>
-    <input type="hidden" name="utm_content" value=""/>
-    <input type="hidden" name="gclid" value=""/>
+    <input type="hidden" name="zc_gad" value={campaign.zc_gad}/>
+    <input type="hidden" name="utm_source" value={campaign.utm_source}/>
+    <input type="hidden" name="utm_medium" value={campaign.utm_medium}/>
+    <input type="hidden" name="utm_campaign" value={campaign.utm_campaign}/>
+    <input type="hidden" name="utm_term" value={campaign.utm_term}/>
+    <input type="hidden" name="utm_content" value={campaign.utm_content}/>
+    <input type="hidden" name="gclid" value={campaign.gclid}/>
     <div className="zoho-scroll-answers" hidden aria-hidden="true">
       {calculatorFields.map((field,index)=>field.values.map((value,option)=><input key={`${field.name}-${option}`} type="radio" name={field.name} value={value} checked={answers[index]===option} onChange={()=>{}} {...zohoCheck('c1')}/>))}
       <p id="Radio2_error" className="zf-errorMessage">Selecciona tu productividad.</p>

@@ -2,6 +2,7 @@
 
 import {useEffect} from 'react';
 import Script from 'next/script';
+import {useCampaignFields} from '@/lib/campaign-fields';
 import {zohoCheck} from '@/lib/zoho-check';
 
 const franchiseOptions = ['Menos de $500,000','500 mil pesos','Mas de 500 mil pesos'];
@@ -22,29 +23,31 @@ function configureZoho(){
   const formats = w.zf_SetDateAndMonthRegexBasedOnDateFormate('dd-MMM-yyyy');
   w.zf_DateRegex = new RegExp(formats[0]);
   w.zf_MonthYearRegex = new RegExp(formats[1]);
-  w.zf_MandArray = ['SingleLine','Email','SingleLine10','Radio2','Radio4','Radio','Radio1'];
-  w.zf_FieldArray = ['SingleLine','Email','SingleLine10','Radio6','Radio2','Radio4','Radio','Radio1'];
+  w.zf_MandArray = ['SingleLine','Email','SingleLine10','SingleLine12','Radio2','Radio4','Radio','Radio1'];
+  w.zf_FieldArray = ['SingleLine','Email','SingleLine10','SingleLine12','Radio6','Radio2','Radio4','Radio','Radio1'];
   w.isSalesIQIntegrationEnabled = false;
   w.salesIQFieldsArray = [];
 }
 
-export function EmprendedoresLeadForm({franchise,capital,timing}:{franchise:string;capital:string;timing:string}){
+export function EmprendedoresLeadForm({city,franchise,capital,timing}:{city:string;franchise:string;capital:string;timing:string}){
+  const campaign = useCampaignFields('emprendedores');
   useEffect(()=>{configureZoho();},[]);
   function onSubmit(e:React.FormEvent<HTMLFormElement>){
     const validate = (window as Window & {zf_ValidateAndSubmit?:()=>boolean}).zf_ValidateAndSubmit;
     if(!validate||!validate())e.preventDefault();
   }
   return <form className="lead-form" action="https://forms.zohopublic.com/coldwellbankeraffiliatesdeme1/form/LandingCBAMBafflerEmprendedores/formperma/P0V6enu3Wlalypvyav5vvDoOfLZKNGMAItjS8PumAN4/htmlRecords/submit" name="form" method="POST" acceptCharset="UTF-8" encType="multipart/form-data" id="form" onSubmit={onSubmit}>
-    <input type="hidden" name="zf_referrer_name" value=""/>
+    <input type="hidden" name="zf_referrer_name" value={campaign.zf_referrer_name}/>
     <input type="hidden" name="zf_redirect_url" value=""/>
-    <input type="hidden" name="zc_gad" value=""/>
-    <input type="hidden" name="utm_source" value=""/>
-    <input type="hidden" name="utm_medium" value=""/>
-    <input type="hidden" name="utm_campaign" value=""/>
-    <input type="hidden" name="utm_term" value=""/>
-    <input type="hidden" name="utm_content" value=""/>
-    <input type="hidden" name="gclid" value=""/>
+    <input type="hidden" name="zc_gad" value={campaign.zc_gad}/>
+    <input type="hidden" name="utm_source" value={campaign.utm_source}/>
+    <input type="hidden" name="utm_medium" value={campaign.utm_medium}/>
+    <input type="hidden" name="utm_campaign" value={campaign.utm_campaign}/>
+    <input type="hidden" name="utm_term" value={campaign.utm_term}/>
+    <input type="hidden" name="utm_content" value={campaign.utm_content}/>
+    <input type="hidden" name="gclid" value={campaign.gclid}/>
     <div hidden aria-hidden="true">
+      <input name="SingleLine12" value={city} {...zohoCheck('c1')} onChange={()=>{}}/>
       <input type="radio" name="Radio6" value="Si" {...zohoCheck('c1')} onChange={()=>{}}/>
       <input type="radio" name="Radio6" value="No" checked {...zohoCheck('c1')} onChange={()=>{}}/>
       {franchiseOptions.map(option=><input key={option} type="radio" name="Radio2" value={option} checked={franchise===option} onChange={()=>{}} {...zohoCheck('c1')}/>)}
@@ -57,6 +60,7 @@ export function EmprendedoresLeadForm({franchise,capital,timing}:{franchise:stri
       <label>Correo electrónico <em>*</em><input name="Email" {...zohoCheck('c5')} maxLength={255} autoComplete="email" inputMode="email"/><p id="Email_error" className="zf-errorMessage">Escribe un correo válido.</p></label>
     </div>
     <label className="contact-phone">Teléfono / WhatsApp <em>*</em><input name="SingleLine10" {...zohoCheck('c1')} maxLength={255} autoComplete="tel"/><p id="SingleLine10_error" className="zf-errorMessage">Escribe tu teléfono o WhatsApp.</p></label>
+    <p id="SingleLine12_error" className="zf-errorMessage">Escribe la ciudad para abrir tu franquicia.</p>
     <p id="Radio2_error" className="zf-errorMessage">Selecciona el monto disponible para adquirir la franquicia.</p>
     <p id="Radio6_error" className="zf-errorMessage">Selecciona una opción.</p>
     <p id="Radio4_error" className="zf-errorMessage">Selecciona tu capital de trabajo en los paneles anteriores.</p>

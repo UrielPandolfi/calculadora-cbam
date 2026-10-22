@@ -26,11 +26,11 @@ function imageSrc(file:string|{src:string}){
 export default function EmprendedoresLanding(){
   const [office,setOffice]=useState('');
   const [franchise,setFranchise]=useState('');
-  const [capital,setCapital]=useState('');
   const [showNext,setShowNext]=useState(false);
-  const [showCapital,setShowCapital]=useState(false);
+  const [city,setCity]=useState('');
+  const [showCity,setShowCity]=useState(false);
   const [showShield,setShowShield]=useState(false);
-  const [startupCapital,setStartupCapital]=useState('');
+  const [capital,setCapital]=useState('');
   const [timing,setTiming]=useState('');
   const [showTools,setShowTools]=useState(false);
   const [showReady,setShowReady]=useState(false);
@@ -45,10 +45,10 @@ export default function EmprendedoresLanding(){
   },[showNext]);
 
   useEffect(()=>{
-    if(!showCapital)return;
+    if(!showCity)return;
     const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     document.getElementById('escena-2')?.scrollIntoView({behavior:reduce?'instant':'smooth',block:'start'});
-  },[showCapital]);
+  },[showCity]);
 
   useEffect(()=>{
     if(!showShield)return;
@@ -142,24 +142,21 @@ export default function EmprendedoresLanding(){
                 <SelectContent position="popper" sideOffset={10} className="scene-options">{franchiseOptions.map(option=><SelectItem key={option} value={option} className="scene-option">{option}</SelectItem>)}</SelectContent>
               </Select>
               <p className="zone-note">Este monto define la inversión para adquirir tu franquicia y el esquema con el que arranca tu agencia.</p>
-              <button type="button" className="discover" disabled={!franchise} onClick={()=>setShowCapital(true)}>Descubrir mi oportunidad</button>
+              <button type="button" className="discover" disabled={!franchise} onClick={()=>setShowCity(true)}>Descubrir mi oportunidad</button>
             </div>
           </div>
         </div>
       </section>}
-      {showCapital&&<section className="scene is-active" id="escena-2" aria-labelledby="titulo-capital">
+      {showCity&&<section className="scene is-active" id="escena-2" aria-labelledby="titulo-ciudad-franquicia">
         <div className="scene-media"><img src={imageSrc(slide3)} alt=""/></div>
         <div className="scene-layout">
           <div className="hero">
-            <h2 className="hero-title capital-title" id="titulo-capital"><em>Capacitamos</em> a tu<br/>equipo para que<br/>aseguren más<br/>y mejores exclusivas</h2>
+            <h2 className="hero-title capital-title" id="titulo-ciudad-franquicia"><em>Capacitamos</em> a tu<br/>equipo para que<br/>aseguren más<br/>y mejores exclusivas</h2>
             <div className="ask">
-              <label id="pregunta-capital" htmlFor="capital">Selecciona el capital de trabajo destinado para tu primer año:</label>
-              <Select value={capital} onValueChange={setCapital}>
-                <SelectTrigger id="capital" aria-labelledby="pregunta-capital" className="scene-select"><SelectValue placeholder="Selecciona una opción"/></SelectTrigger>
-                <SelectContent position="popper" sideOffset={10} className="scene-options">{capitalOptions.map(option=><SelectItem key={option} value={option} className="scene-option">{option}</SelectItem>)}</SelectContent>
-              </Select>
-              <p className="zone-note on-dark">Proyectamos con este capital la operación de tu primer año y el camino a tus primeras exclusivas.</p>
-              <button type="button" className="discover" disabled={!capital} onClick={()=>setShowShield(true)}>Descubrir mi oportunidad</button>
+              <label id="pregunta-ciudad" htmlFor="ciudad">Ciudad para abrir tu franquicia</label>
+              <input id="ciudad" className="scene-select scene-text" value={city} onChange={event=>setCity(event.target.value)} maxLength={255} autoComplete="address-level2" placeholder="Escribe tu ciudad" aria-labelledby="pregunta-ciudad"/>
+              <p className="zone-note on-dark">Analizamos la viabilidad de tu zona para asegurar que entres al mercado con una ventaja competitiva clara.</p>
+              <button type="button" className="discover" disabled={!city.trim()} onClick={()=>setShowShield(true)}>Descubrir mi oportunidad</button>
             </div>
           </div>
         </div>
@@ -171,12 +168,12 @@ export default function EmprendedoresLanding(){
             <h2 className="hero-title shield-title" id="titulo-blinda"><em>Blinda tu capital</em> de<br/>arranque con nuestro<br/>acompañamiento<br/>directivo 1 a 1.</h2>
             <div className="ask">
               <label id="pregunta-arranque" htmlFor="arranque">¿Cuál es tu capital de trabajo para el primer año de operación?</label>
-              <Select value={startupCapital} onValueChange={setStartupCapital}>
+              <Select value={capital} onValueChange={setCapital}>
                 <SelectTrigger id="arranque" aria-labelledby="pregunta-arranque" className="scene-select"><SelectValue placeholder="Selecciona una opción"/></SelectTrigger>
                 <SelectContent position="popper" sideOffset={10} className="scene-options">{capitalOptions.map(option=><SelectItem key={option} value={option} className="scene-option">{option}</SelectItem>)}</SelectContent>
               </Select>
               <p className="zone-note on-dark shield-note">Acompañamos tu capital con un consultor de negocios dedicado a ti. A través de nuestro<br/>coaching estratégico, analizamos tus métricas, validamos tus decisiones comerciales y<br/>guiamos a tu franquicia inmobiliaria hacia el punto de equilibrio en tiempo récord.</p>
-              <button type="button" className="discover" disabled={!startupCapital} onClick={()=>setShowTools(true)}>Descubrir mi oportunidad</button>
+              <button type="button" className="discover" disabled={!capital} onClick={()=>setShowTools(true)}>Descubrir mi oportunidad</button>
             </div>
           </div>
         </div>
@@ -212,7 +209,7 @@ export default function EmprendedoresLanding(){
         <button type="button" className="discover" onClick={goToForm}>Confirmar mi llamada de evaluación</button>
       </section>
       <section className="contact-block" id="contacto" aria-labelledby="titulo-contacto">
-        <EmprendedoresLeadForm franchise={franchise} capital={startupCapital||capital} timing={timing}/>
+        <EmprendedoresLeadForm city={city.trim()} franchise={franchise} capital={capital} timing={timing}/>
       </section>
       </div>}
     </main>

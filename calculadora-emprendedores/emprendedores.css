@@ -26,9 +26,11 @@
 .emprendedores .scene.light .scene-select svg{color:#1b3c55!important}
 .emprendedores .zone-note{margin:18px 0 0;max-width:340px;color:#1b3c55;font-size:16px;line-height:1.45}
 .emprendedores .scene.light .discover{margin-top:22px}
+.emprendedores .scene-text::placeholder{color:#ffffffb3}
 .emprendedores .capital-title{max-width:16em}
 .emprendedores .capital-title em{color:#1f69ff}
 .emprendedores #escena-2 .ask{max-width:520px}
+.emprendedores #escena-2 .scene-select{max-width:440px!important}
 .emprendedores .ask .zone-note.on-dark{max-width:348px;color:#fff}
 .emprendedores .shield-title{max-width:18em}
 .emprendedores #escena-3 .hero{max-width:840px}
