@@ -15,9 +15,9 @@ const officeOptions = [
   {value:'Si',label:'Sí'},
   {value:'No',label:'No'},
 ] as const;
-const franchiseOptions = ['Menos de $500,000','500 mil pesos','Mas de 500 mil pesos'];
+const franchiseOptions = ['Menos de 500 mil pesos','500 mil pesos','Más de 500 mil pesos'];
 const capitalOptions = ['Menos de 1 MDP','De 1 a 1.5 MDP','De 1.5 a 2 MDP','Mas de 2 MDP'];
-const timingOptions = ['Invertir Ahora','De 1 a 2 Meses','Mas de 3 Meses'];
+const timingOptions = ['Invertir ahora','De 1 a 2 meses','Más de 3 meses'];
 
 function imageSrc(file:string|{src:string}){
   return typeof file==='string'?file:file.src;

@@ -2,6 +2,7 @@
 
 import {useEffect} from 'react';
 import Script from 'next/script';
+import {MexicoResidenceFields} from '@/components/mexico-residence-fields';
 import {useCampaignFields} from '@/lib/campaign-fields';
 import {zohoCheck} from '@/lib/zoho-check';
 
@@ -35,8 +36,8 @@ function configureZoho() {
   const formats = w.zf_SetDateAndMonthRegexBasedOnDateFormate('dd-MMM-yyyy');
   w.zf_DateRegex = new RegExp(formats[0]);
   w.zf_MonthYearRegex = new RegExp(formats[1]);
-  w.zf_MandArray = ['SingleLine','Email','SingleLine14','Radio2','Radio4','Radio','Radio3','Radio5','SingleLine10','SingleLine12','SingleLine13','Radio1'];
-  w.zf_FieldArray = ['SingleLine','Email','Radio6','SingleLine14','SingleLine15','Radio2','Radio4','Radio','Radio3','Radio5','SingleLine10','SingleLine12','SingleLine13','Radio1'];
+  w.zf_MandArray = ['SingleLine','Email','Radio2','Radio4','Radio','Radio3','Radio5','SingleLine10','SingleLine17','SingleLine12','Radio1'];
+  w.zf_FieldArray = ['SingleLine','Email','Radio6','Radio2','Radio4','Radio','Radio3','Radio5','SingleLine10','SingleLine17','SingleLine12','Radio1'];
   w.isSalesIQIntegrationEnabled = false;
   w.salesIQFieldsArray = [];
 }
@@ -71,15 +72,10 @@ export function ZohoLeadForm({answers}:{answers:number[]}) {
       <label>Correo electrónico <em>*</em><input name="Email" {...zohoCheck('c5')} maxLength={255} autoComplete="email" inputMode="email"/><p id="Email_error" className="zf-errorMessage">Escribe un correo válido.</p></label>
     </div>
     <div hidden aria-hidden="true"><input type="radio" name="Radio6" value="Si" defaultChecked {...zohoCheck('c1')}/><input type="radio" name="Radio6" value="No" {...zohoCheck('c1')}/><p id="Radio6_error" className="zf-errorMessage">Selecciona una opción.</p></div>
-    <div className="form-grid">
-      <label>Nombre de tu agencia <em>*</em><input name="SingleLine14" {...zohoCheck('c1')} maxLength={255}/><p id="SingleLine14_error" className="zf-errorMessage">Escribe el nombre de tu agencia.</p></label>
-      <label>Marca actual <span>(opcional)</span><input name="SingleLine15" {...zohoCheck('c1')} maxLength={255} placeholder="Independiente, Century 21, RE/MAX, Alfa u otra"/><p id="SingleLine15_error" className="zf-errorMessage">Revisa la marca actual.</p></label>
-    </div>
     <fieldset className="zoho-group"><legend>¿Cómo quieres dar el siguiente paso? <em>*</em></legend><div className="zoho-choices">{nextStep.map(([value,detail])=><label key={value} className="zoho-choice"><input type="radio" name="Radio5" value={value} {...zohoCheck('c1')}/><span><strong>{value}</strong><small>{detail}</small></span></label>)}</div><p id="Radio5_error" className="zf-errorMessage">Selecciona una opción.</p></fieldset>
     <div className="form-grid">
-      <label>Teléfono / WhatsApp <em>*</em><input name="SingleLine10" {...zohoCheck('c1')} maxLength={255} autoComplete="tel"/><p id="SingleLine10_error" className="zf-errorMessage">Escribe tu teléfono o WhatsApp.</p></label>
-      <label>Fecha preferida <em>*</em><input name="SingleLine12" {...zohoCheck('c1')} maxLength={255} placeholder="Por ejemplo, 15 de octubre"/><p id="SingleLine12_error" className="zf-errorMessage">Escribe la fecha que prefieres.</p></label>
-      <label>Hora preferida (CDMX) <em>*</em><input name="SingleLine13" {...zohoCheck('c1')} maxLength={255} placeholder="Por ejemplo, 10:00"/><p id="SingleLine13_error" className="zf-errorMessage">Escribe la hora que prefieres.</p></label>
+      <label className="span-row">Teléfono / WhatsApp <em>*</em><input name="SingleLine10" {...zohoCheck('c1')} maxLength={255} autoComplete="tel"/><p id="SingleLine10_error" className="zf-errorMessage">Escribe tu teléfono o WhatsApp.</p></label>
+      <MexicoResidenceFields stateName="SingleLine17" stateErrorId="SingleLine17_error" municipalityName="SingleLine12" municipalityErrorId="SingleLine12_error"/>
     </div>
     <fieldset className="zoho-group"><legend>Política de privacidad <em>*</em></legend><div className="zoho-choices"><label className="zoho-choice"><input type="radio" name="Radio1" value="Acepto" {...zohoCheck('c1')}/><span>He leído el <a href="https://coldwellbanker.com.mx/aviso-privacidad" target="_blank" rel="noreferrer">aviso de privacidad</a> y acepto el tratamiento de mis datos.</span></label></div><p id="Radio1_error" className="zf-errorMessage">Acepta la política de privacidad.</p></fieldset>
     <button className="primary" type="submit">Enviar mi solicitud</button>

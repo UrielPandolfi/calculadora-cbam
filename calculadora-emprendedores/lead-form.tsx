@@ -2,12 +2,13 @@
 
 import {useEffect} from 'react';
 import Script from 'next/script';
+import {MexicoResidenceFields} from '@/components/mexico-residence-fields';
 import {useCampaignFields} from '@/lib/campaign-fields';
 import {zohoCheck} from '@/lib/zoho-check';
 
-const franchiseOptions = ['Menos de $500,000','500 mil pesos','Mas de 500 mil pesos'];
+const franchiseOptions = ['Menos de 500 mil pesos','500 mil pesos','Más de 500 mil pesos'];
 const capitalOptions = ['Menos de 1 MDP','De 1 a 1.5 MDP','De 1.5 a 2 MDP','Mas de 2 MDP'];
-const timingOptions = ['Invertir Ahora','De 1 a 2 Meses','Mas de 3 Meses'];
+const timingOptions = ['Invertir ahora','De 1 a 2 meses','Más de 3 meses'];
 
 function configureZoho(){
   const w = window as Window & {
@@ -23,8 +24,8 @@ function configureZoho(){
   const formats = w.zf_SetDateAndMonthRegexBasedOnDateFormate('dd-MMM-yyyy');
   w.zf_DateRegex = new RegExp(formats[0]);
   w.zf_MonthYearRegex = new RegExp(formats[1]);
-  w.zf_MandArray = ['SingleLine','Email','SingleLine10','SingleLine12','Radio2','Radio4','Radio','Radio1'];
-  w.zf_FieldArray = ['SingleLine','Email','SingleLine10','SingleLine12','Radio6','Radio2','Radio4','Radio','Radio1'];
+  w.zf_MandArray = ['SingleLine','Email','SingleLine10','SingleLine12','SingleLine13','SingleLine14','Radio2','Radio4','Radio','Radio1'];
+  w.zf_FieldArray = ['SingleLine','Email','SingleLine10','SingleLine12','SingleLine13','SingleLine14','Radio6','Radio2','Radio4','Radio','Radio1'];
   w.isSalesIQIntegrationEnabled = false;
   w.salesIQFieldsArray = [];
 }
@@ -60,6 +61,9 @@ export function EmprendedoresLeadForm({city,franchise,capital,timing}:{city:stri
       <label>Correo electrónico <em>*</em><input name="Email" {...zohoCheck('c5')} maxLength={255} autoComplete="email" inputMode="email"/><p id="Email_error" className="zf-errorMessage">Escribe un correo válido.</p></label>
     </div>
     <label className="contact-phone">Teléfono / WhatsApp <em>*</em><input name="SingleLine10" {...zohoCheck('c1')} maxLength={255} autoComplete="tel"/><p id="SingleLine10_error" className="zf-errorMessage">Escribe tu teléfono o WhatsApp.</p></label>
+    <div className="form-grid location-grid">
+      <MexicoResidenceFields stateName="SingleLine14" stateErrorId="SingleLine14_error" municipalityName="SingleLine13" municipalityErrorId="SingleLine13_error"/>
+    </div>
     <p id="SingleLine12_error" className="zf-errorMessage">Escribe la ciudad para abrir tu franquicia.</p>
     <p id="Radio2_error" className="zf-errorMessage">Selecciona el monto disponible para adquirir la franquicia.</p>
     <p id="Radio6_error" className="zf-errorMessage">Selecciona una opción.</p>
